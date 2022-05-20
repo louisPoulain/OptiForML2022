@@ -2,7 +2,7 @@
 
 Project  of the Optimization for Machine Learning course given at the EPFL 2022.
 
-The goal of this project is to study meta optimizer as Atmo on image classification task (MNIST and cifar10) using deep network architecture (resnet18)
+The goal of this project is to study adaptative meta optimizer as Atmo on image classification task (MNIST and cifar10) using deep network architecture (resnet18)
 
 ## Team members
 
