@@ -8,7 +8,7 @@ The goal of this project is to study adaptative meta optimizer as Atmo on image 
 
 - Arthur
 - Emilien Seiler
-- Louis
+- Louis Poulain
 
 ## Installing
 
