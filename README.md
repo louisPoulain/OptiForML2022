@@ -29,6 +29,7 @@ Dependencies:
 ## Structure
 
 This is the structure of the repository:
+
 -`fig`: 
   -`Cifar_training_metric.png`: figure with training metric on cifar dataset according to each optimizer
   -`MNIST_training_metric.png`: figure with training metric on MNIST dataset according to each optimizer
