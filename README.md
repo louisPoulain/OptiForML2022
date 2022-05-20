@@ -30,9 +30,9 @@ Dependencies:
 
 This is the structure of the repository:
 
--`fig`: 
-  -`Cifar_training_metric.png`: figure with training metric on cifar dataset according to each optimizer
-  -`MNIST_training_metric.png`: figure with training metric on MNIST dataset according to each optimizer
+- `fig`: 
+  - `Cifar_training_metric.png`: figure with training metric on cifar dataset according to each optimizer
+  - `MNIST_training_metric.png`: figure with training metric on MNIST dataset according to each optimizer
 - `optimizer`: contains different optimizer for training
   - `AdaHessian.py`: adahessian second order optimizer implementation
   - `Atmo.py` : atmo meta optimizer implementation
