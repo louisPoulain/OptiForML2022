@@ -6,9 +6,9 @@ The goal of this project is to study adaptative meta optimizer as Atmo on image 
 
 ## Team members
 
-- Arthur
+- Arthur Nussbaumer
 - Emilien Seiler
-- Louis Poulain
+- Louis Poulain--Auzéau
 
 ## Installing
 
