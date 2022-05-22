@@ -31,7 +31,7 @@ Dependencies:
 This is the structure of the repository:
 
 - `fig`: 
-  - `Cifar_training_metric.png`: figure with training metric on cifar dataset according to each optimizer
+  - `CIFAR_training_metric.png`: figure with training metric on cifar dataset according to each optimizer
   - `time_epoch_MNIST.png`: figure with time by epoch on MNIST according to each optimizer
   - `MNIST_training_metric.png`: figure with training metric on MNIST dataset according to each optimizer
   - `time_epoch_cifar.png`: figure with time by epoch on cifar according to each optimizer
