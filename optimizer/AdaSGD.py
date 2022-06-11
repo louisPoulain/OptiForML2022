@@ -21,7 +21,7 @@ class AdaSGD(torch.optim.Optimizer):
     def __init__(self,
                  params, lr=0.1, weight_decay=0.0,
                  betas=(0.9, 0.999), eps=1e-8, dampening = 0,
-                 momentum=0.95, ada_w=0.5, sgd_w=0.5,
+                 momentum=0.95, nesterov=False, ada_w=0.5, sgd_w=0.5,
                  hessian_power=1.0, update_each=1, n_samples=1, 
                  average_conv_kernel=False):
         if not 0.0 <= lr:
