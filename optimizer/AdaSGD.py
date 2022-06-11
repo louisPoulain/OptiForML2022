@@ -1,7 +1,7 @@
 import torch
 import math
 
-class AdaSGD(torch.optim.optimizer):
+class AdaSGD(torch.optim.Optimizer):
     # Mix between AdaHessian and SGD
     """
     Arguments:
