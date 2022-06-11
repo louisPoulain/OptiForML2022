@@ -42,8 +42,8 @@ class AdaSGD(torch.optim.Optimizer):
         defaults = dict(
             lr=lr, weight_decay=weight_decay,
             betas=betas, eps=eps, dampening=dampening,
-            momentum=momentum, ada_w=ada_w, sgd_w=sgd_w,
-            hessian_power = hessian_power, nesterov=nesterov
+            momentum=momentum, nesterov = nesterov, ada_w=ada_w, sgd_w=sgd_w,
+            hessian_power = hessian_power, 
         )
 
         super(AdaSGD, self).__init__(params, defaults)
@@ -54,6 +54,12 @@ class AdaSGD(torch.optim.Optimizer):
         for p in self.get_params():
             p.hess = 0.0
             self.state[p]["hessian step"] = 0
+    
+    def __setstate__(self, state):
+        super(AdaSGD, self).__setstate__(state)
+        for group in self.param_groups:
+            group.setdefault('amsgrad', False)
+            group.setdefault('nesterov', False)
 
     def get_params(self):
         """
