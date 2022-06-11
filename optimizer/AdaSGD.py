@@ -43,7 +43,7 @@ class AdaSGD(torch.optim.Optimizer):
             lr=lr, weight_decay=weight_decay,
             betas=betas, eps=eps, dampening=dampening,
             momentum=momentum, ada_w=ada_w, sgd_w=sgd_w,
-            hessian_power = hessian_power
+            hessian_power = hessian_power, nesterov=nesterov
         )
 
         super(AdaSGD, self).__init__(params, defaults)
