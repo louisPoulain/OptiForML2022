@@ -128,7 +128,7 @@ class AdaSGD(torch.optim.Optimizer):
                 if grad.is_sparse:
                     raise RuntimeError('AdaSGD does not support sparse gradients')
 
-                d_p_adaH, step_size = self.ada_step(grad, hess, group, p)
+                d_p_adaH, step_size = self.ada_step(group, p)
 
                 d_p_sgd = self.sgd_step(grad, group, p)
 
@@ -141,28 +141,29 @@ class AdaSGD(torch.optim.Optimizer):
         return loss
 
     @torch.no_grad()
-    def ada_step(self, grad, hess, group, p):
+    def ada_step(self, group, p):
+        d_p = p
 
-        if self.average_conv_kernel and p.dim() == 4:
-            hess = torch.abs(hess).mean(dim=[2, 3], keepdim=True).expand_as(hess).clone()
+        if self.average_conv_kernel and d_p.dim() == 4:
+            d_p.hess = torch.abs(d_p.hess).mean(dim=[2, 3], keepdim=True).expand_as(d_p.hess).clone()
 
         # Perform correct stepweight decay as in AdamW
-        p.mul_(1 - group['lr'] * group['weight_decay'])
+        d_p.mul_(1 - group['lr'] * group['weight_decay'])
         state = self.state[p]
 
         # State initialization
         if len(state) == 1:
             state['step'] = 0
-            state['exp_avg'] = torch.zeros_like(p.data)  # Exponential moving average of gradient values
-            state['exp_hessian_diag_sq'] = torch.zeros_like(p.data)  # Exponential moving average of Hessian diagonal square values
+            state['exp_avg'] = torch.zeros_like(d_p.data)  # Exponential moving average of gradient values
+            state['exp_hessian_diag_sq'] = torch.zeros_like(d_p.data)  # Exponential moving average of Hessian diagonal square values
 
         exp_avg, exp_hessian_diag_sq = state['exp_avg'], state['exp_hessian_diag_sq']
         beta1, beta2 = group['betas']
         state['step'] += 1
 
         # Decay the first and second moment running average coefficient
-        exp_avg.mul_(beta1).add_(grad, alpha=1 - beta1)
-        exp_hessian_diag_sq.mul_(beta2).addcmul_(hess, hess, value=1 - beta2)
+        exp_avg.mul_(beta1).add_(d_p.grad, alpha=1 - beta1)
+        exp_hessian_diag_sq.mul_(beta2).addcmul_(d_p.hess, d_p.hess, value=1 - beta2)
 
         bias_correction1 = 1 - beta1 ** state['step']
         bias_correction2 = 1 - beta2 ** state['step']
@@ -172,9 +173,9 @@ class AdaSGD(torch.optim.Optimizer):
 
         # make update
         step_size = group['lr'] / bias_correction1
-        p.addcdiv_(exp_avg, denom, value=-step_size)
+        d_p.addcdiv_(exp_avg, denom, value=-step_size)
 
-        return p, step_size
+        return d_p, step_size
 
     def sgd_step(self, grad, group, p):
         d_p = grad
