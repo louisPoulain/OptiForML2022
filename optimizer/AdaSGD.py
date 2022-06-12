@@ -56,10 +56,10 @@ class AdaSGD(torch.optim.Optimizer):
             self.state[p]["hessian step"] = 0
     
     def __setstate__(self, state):
-        super(AdaSGD, self).__setstate__(state)
+        super(SGD, self).__setstate__(state)
         for group in self.param_groups:
-            group.setdefault('amsgrad', False)
             group.setdefault('nesterov', False)
+            #group.setdefault('maximize', False)
 
     def get_params(self):
         """
@@ -124,7 +124,7 @@ class AdaSGD(torch.optim.Optimizer):
                 if p.grad is None or p.hess is None:
                     continue
                 grad = p.grad
-                hess = p.hess
+                #hess = p.hess
                 if grad.is_sparse:
                     raise RuntimeError('AdaSGD does not support sparse gradients')
 
