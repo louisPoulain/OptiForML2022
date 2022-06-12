@@ -137,7 +137,7 @@ class AdaSGD(torch.optim.Optimizer):
                 #merged_lr = group['sgd_w'] * group['lr'] + group['ada_w'] * step_size
 
                 #p.add_(merged_d_p, alpha=-merged_lr)
-                p = p + merged_d_p
+                p.add_(merged_d_p, alpha = 1.) #p = p + merged_d_p
 
         return loss
 
