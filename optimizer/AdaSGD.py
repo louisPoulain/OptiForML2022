@@ -128,15 +128,16 @@ class AdaSGD(torch.optim.Optimizer):
                 #if grad.is_sparse:
                 #    raise RuntimeError('AdaSGD does not support sparse gradients')
 
-                d_p_adaH, step_size = self.ada_step(grad = grad, hess = hess, group = group, p = p)
+                d_p_adaH = self.ada_step(grad = grad, hess = hess, group = group, p = p)
 
                 d_p_sgd = self.sgd_step(grad, group, p)
 
-                merged_d_p = group['sgd_w'] * d_p_sgd + group['ada_w'] * d_p_adaH
+                merged_d_p = group['sgd_w'] * d_p_sgd * group['lr'] + group['ada_w'] * d_p_adaH
                 #print(f'[{d_p_adaH}, {d_p_sgd}, {merged_d_p}],')
-                merged_lr = group['sgd_w'] * group['lr'] + group['ada_w'] * step_size
+                #merged_lr = group['sgd_w'] * group['lr'] + group['ada_w'] * step_size
 
-                p.add_(merged_d_p, alpha=-merged_lr)
+                #p.add_(merged_d_p, alpha=-merged_lr)
+                p = p + merged_d_p
 
         return loss
 
@@ -183,9 +184,9 @@ class AdaSGD(torch.optim.Optimizer):
         # w_{k+1} = w_k - lr * (m_k / (1 - beta1 ** k)) / (v_k / (1 - beta2 ** k))
         # with adamW update: w_{k+1} = w_k - (lr * exp_avg / bias_correction1 / denom - weight_decay * w_k)
         step_size = group['lr'] / bias_correction1
-        d_p = p - (step_size * exp_avg / denom - group['weight_decay'] * p)
+        d_p = p * (1 - group['weight_decay']) - step_size * exp_avg / denom
         
-        return d_p, step_size
+        return d_p
 
     def sgd_step(self, grad, group, p):
         d_p = grad
