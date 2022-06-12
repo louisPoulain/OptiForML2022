@@ -127,8 +127,11 @@ class AdaSGD(torch.optim.Optimizer):
                 hess = p.hess
                 #if grad.is_sparse:
                 #    raise RuntimeError('AdaSGD does not support sparse gradients')
-
-                d_p_adaH, step_size = self.ada_step(grad = grad, hess = hess, group = group, p = p)
+                
+                if group['ada_w'] > 0:
+                    d_p_adaH, step_size = self.ada_step(grad = grad, hess = hess, group = group, p = p)
+                else:
+                    d_p_adaH, step_size = 0, 0 # no need to compute hessians this way
 
                 d_p_sgd = self.sgd_step(grad, group, p)
 
