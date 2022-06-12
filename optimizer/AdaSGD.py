@@ -133,7 +133,7 @@ class AdaSGD(torch.optim.Optimizer):
                 d_p_sgd = self.sgd_step(grad, group, p)
 
                 merged_d_p = group['sgd_w'] * d_p_sgd + group['ada_w'] * d_p_adaH
-                print(f'[{d_p_adaH}, {d_p_sgd}, {megred_d_p}],')
+                print(f'[{d_p_adaH}, {d_p_sgd}, {merged_d_p}],')
                 merged_lr = group['sgd_w'] * group['lr'] + group['ada_w'] * step_size
 
                 p.add_(merged_d_p, alpha=-merged_lr)
