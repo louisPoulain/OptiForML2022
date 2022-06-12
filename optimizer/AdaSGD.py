@@ -209,3 +209,31 @@ class AdaSGD(torch.optim.Optimizer):
                 d_p = buf
 
         return d_p
+    
+    
+class AdaSGDscheduler:
+    def __init__(self, optimizer, start=0, end=1, epochs=100):
+        self.epochs = epochs
+        self.start = start
+        self.end = end
+        self._step_count = 0
+        self.optimizer = optimizer
+
+    def step(self):
+        self._step_count += 1
+        if not self._step_count > self.epochs:
+            if self.start > self.end:
+                diff = self.start - self.end
+                self.sgd_w = self.start - self._step_count / self.epochs * diff
+            else:
+                diff = self.end - self.start
+                self.sgd_w = self._step_count / self.epochs * diff + self.start
+
+            self.ada_w = 1 - self.sgd_w
+            # update default
+            self.optimizer.defaults['ada_w'] = self.ada_w
+            self.optimizer.defaults['sgd_w'] = self.sgd_w
+            # update all group of params
+            for group in self.optimizer.param_groups:
+                group['ada_w'] = self.ada_w
+                group['sgd_w'] = self.sgd_w
