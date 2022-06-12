@@ -46,7 +46,7 @@ class AdaSGD(torch.optim.Optimizer):
             hessian_power = hessian_power, 
         )
 
-        super(torch.optim.Optimizer, self).__init__(params, defaults)
+        super(AdaSGD, self).__init__(params, defaults)
 
         # use a separate generator that deterministically generates the same `z`s across all GPUs in case of distributed training
         self.generator = torch.Generator().manual_seed(2147483647)
