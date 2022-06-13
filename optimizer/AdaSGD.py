@@ -117,8 +117,7 @@ class AdaSGD(torch.optim.Optimizer):
                 loss = closure()
         
         self.zero_hessian()
-        if group['ada_w'] > 0: # else we don't need to compute an expensive Hessian since it will not be used
-            self.set_hessian()
+        self.set_hessian()
         for group in self.param_groups:
             for p in group['params']:
                 
@@ -129,11 +128,8 @@ class AdaSGD(torch.optim.Optimizer):
                 #if grad.is_sparse:
                 #    raise RuntimeError('AdaSGD does not support sparse gradients')
                 
-                if group['ada_w'] > 0:
-                    d_p_adaH, step_size = self.ada_step(grad = grad, hess = hess, group = group, p = p)
-                else:
-                    d_p_adaH, step_size = 0, 0 # no need to compute hessians this way
-
+                
+                d_p_adaH, step_size = self.ada_step(grad = grad, hess = hess, group = group, p = p)
                 d_p_sgd = self.sgd_step(grad, group, p)
 
                 merged_d_p = group['sgd_w'] * d_p_sgd + group['ada_w'] * d_p_adaH
