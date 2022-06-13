@@ -117,7 +117,8 @@ class AdaSGD(torch.optim.Optimizer):
                 loss = closure()
         
         self.zero_hessian()
-        self.set_hessian()
+        if group['ada_w'] > 0 # else we don't need to compute an expensive Hessian since it will not be used
+            self.set_hessian()
         for group in self.param_groups:
             for p in group['params']:
                 
