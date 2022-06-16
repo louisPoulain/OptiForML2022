@@ -130,6 +130,7 @@ dmypy.json
 
 /data
 
-train_optimizer_copie_Arthur.ipynb
-train_optimizer_copie_Louis.ipynb
-train_optimizer_copie_Louis2.ipynb
+/train_optimizer_copie_Arthur.ipynb
+/train_optimizer_copie_Louis.ipynb
+/train_optimizer_copie_Louis2.ipynb
+
