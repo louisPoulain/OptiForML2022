@@ -28,8 +28,8 @@ Dependencies:
 
 ## Run
 
-To run the training use the notebook `train_optimizer.ipynb` choose optimizer, scheduler and number of epochs in the fourth cell  
-To plot the training log use the notebook `result_visualization.ipynb`
+To run the training use the notebook `train_optimizer.ipynb` choose optimizer, scheduler and number of epochs in the fourth cell.  
+To plot the training log use the notebook `result_visualization.ipynb`.  
 
 ## Structure
 
