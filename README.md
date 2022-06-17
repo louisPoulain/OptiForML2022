@@ -2,7 +2,7 @@
 
 Project  of the Optimization for Machine Learning course given at the EPFL 2022.
 
-The goal of this project is to study adaptative meta optimizer as Atmo on image classification task (cifar10) using deep network architecture (resnet18)
+The goal of this project is to study adaptative meta optimizer as Atmo on image classification task (MNIST, cifar10) using deep network architecture (resnet18). We also study second-order optimizers and combinations of second order and first order optimizers.
 
 ## Team members
 
@@ -43,8 +43,8 @@ This is the structure of the repository:
   - `AdaSGD.py`: adahessian sgd mix
 - `output`: contains output of training
   - `pretrained_model`: model save after training
-  - `training_history`: loss, acc, ... of training
-  - `archive`: archive past training
+  - `training_history`: logs for each training. Each log is a dictionnary that contains the train and test loss and accuracy, the time per epoch, the name of   the optimizer and of the scheduler
+  - `archive`: logs of training that we didn't include in the paper. In particular, some concern the MNIST dataset, which was used as a test
 - `dataset.py`: contain pytorch dataset of image (MNIST or cifar10)
 - `model.py`: contain model use for train (resnet18)
 - `path.py`: path management
