@@ -28,7 +28,7 @@ Dependencies:
 
 ## Run
 
-The notebooks are adapted to be ran on Google Colab. The third cell can be skipped if you run on your local machine.
+The notebooks are adapted to be ran on Google Colab. The third cell can be skipped if you run on your local machine.  
 To run the training use the notebook `train_optimizer.ipynb` choose optimizer, scheduler and number of epochs in the fourth cell.  
 To plot the training log use the notebook `result_visualization.ipynb`.
 
