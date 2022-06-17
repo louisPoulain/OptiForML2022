@@ -28,8 +28,9 @@ Dependencies:
 
 ## Run
 
+The notebooks are adapted to be ran on Google Colab. The third cell can be skipped if you run on your local machine.
 To run the training use the notebook `train_optimizer.ipynb` choose optimizer, scheduler and number of epochs in the fourth cell.  
-To plot the training log use the notebook `result_visualization.ipynb`. The notebooks are adapted to be ran on Google Colab.
+To plot the training log use the notebook `result_visualization.ipynb`.
 
 ## Structure
 
@@ -43,7 +44,7 @@ This is the structure of the repository:
   - `AdaSGD.py`: adahessian sgd mix
 - `output`: contains output of training
   - `pretrained_model`: model save after training
-  - `training_history`: logs for each training. Each log is a dictionnary that contains the train and test loss and accuracy, the time per epoch, the name of   the optimizer and of the scheduler
+  - `training_history`: logs for each training. Each log is a dictionnary that contains the train/test losses and accuracies, the time per epoch, the name of the optimizer and of the scheduler
   - `archive`: logs of training that we didn't include in the paper. In particular, some concern the MNIST dataset, which was used as a test
 - `dataset.py`: contain pytorch dataset of image (MNIST or cifar10)
 - `model.py`: contain model use for train (resnet18)
