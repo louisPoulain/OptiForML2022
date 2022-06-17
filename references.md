@@ -10,4 +10,5 @@
     - [Closing the Generalization Gap of Adaptive Gradient Methods in Training Deep Neural Networks](https://doi.org/10.48550/arXiv.1806.06763)
 
 - Other Python libraries:
+    - [PyTorch: An Imperative Style, High-Performance Deep Learning Library](http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf)
     - [tqdm](https://github.com/tqdm/tqdm)
